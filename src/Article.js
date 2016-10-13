@@ -4,7 +4,9 @@ import CommentList from './CommentList'
 class Article extends Component {
 
   state = {
-    isOpen: false
+    isOpen: false,
+    textButton: 'Показать',
+    isCommentOpen: false
   }
 
   // constructor(props) {
@@ -16,9 +18,7 @@ class Article extends Component {
 
   toggleOpen = (ev) => {
     this.setState({
-      isOpen: !this.state.isOpen,
-      textButton: 'Показать',
-      isCommentOpen: false
+      isOpen: !this.state.isOpen
     })
   }
 
@@ -41,7 +41,6 @@ class Article extends Component {
 
   render() {
     const { article: { title, text, comments } } = this.props;
-
     const { isOpen, textButton, isCommentOpen } = this.state;
     const comment = isCommentOpen ? <CommentList comments = {comments}></CommentList> : null;
     const body = isOpen ? (
