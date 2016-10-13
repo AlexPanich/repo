@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import CommentList from './CommentList'
 
 class Article extends Component {
 
@@ -15,15 +16,41 @@ class Article extends Component {
 
   toggleOpen = (ev) => {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
+      textButton: 'Показать',
+      isCommentOpen: false
+    })
+  }
+
+  toggleComments = (ev) => {
+    ev.preventDefault();
+    let text = '';
+    switch (this.state.textButton) {
+      case 'Показать':
+            text = 'Скрыть';
+            break;
+      case 'Скрыть':
+            text = 'Показать';
+            break;
+    }
+    this.setState({
+      isCommentOpen: !this.state.isCommentOpen,
+      textButton: text
     })
   }
 
   render() {
-    const { article: { title, text } } = this.props;
+    const { article: { title, text, comments } } = this.props;
 
-    const { isOpen } = this.state;
-    const body = isOpen ? <section>{ text }</section> : null;
+    const { isOpen, textButton, isCommentOpen } = this.state;
+    const comment = isCommentOpen ? <CommentList comments = {comments}></CommentList> : null;
+    const body = isOpen ? (
+        <section>
+          <div>{ text }</div>
+          <a href="#" onClick = {this.toggleComments}>{textButton} комментарий</a>
+          {comment}
+        </section>
+    ) : null;
 
     return (
       <div>
