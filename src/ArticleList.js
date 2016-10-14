@@ -1,40 +1,28 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Article from './Article'
+import oneOpen from './decorators/oneOpen'
 
 class ArticleList extends Component {
 
-  state = {
-    openArticleId: null
-  }
-
-  openArticle = id => ev => {
-    if (ev) ev.preventDefault()
-    this.setState({
-      openArticleId: id
-    })
-  }
-
-  render() {
-    const { articles } = this.props;
-
-    const listItems = articles.map((article) => <li key = {article.id}>
+    render() {
+        const {articles, openArticleId, openArticle} = this.props;
+        const listItems = articles.map((article) => <li key={article.id}>
             <Article
-               article = {article}
-               isOpen= {article.id == this.state.openArticleId}
-               openArticle = {this.openArticle(article.id)}
-             />
-          </li>)
+                article={article}
+                isOpen={article.id == openArticleId}
+                openArticle={openArticle(article.id)}
+            />
+        </li>);
 
-
-    return (
-      <div>
-          <h1>Article list</h1>
-          <ul>
-            {listItems}
-          </ul>
-      </div>
-    )
-  }
+        return (
+            <div>
+                <h1>Article list</h1>
+                <ul>
+                    {listItems}
+                </ul>
+            </div>
+        )
+    }
 }
 
-export default ArticleList
+export default oneOpen(ArticleList)
