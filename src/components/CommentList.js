@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Comment from './Comment';
-import toggleOpen from './decorators/toggleOpen';
+import toggleOpen from './../decorators/toggleOpen';
 
 class CommentList extends Component {
 
@@ -14,6 +14,10 @@ class CommentList extends Component {
 
     componentWillReceiveProps(nextProps) {
         console.log('---', this.props.isOpen, nextProps.isOpen)
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      return nextProps.isOpen != this.props.isOpen;
     }
 
     render() {
