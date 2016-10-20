@@ -10,11 +10,11 @@ export default (Component) => class DecoratorOneOpen extends React.Component {
             openId: id == this.state.openId ? null : id
         });
     };
-    
+
     render() {
         return <Component {...this.props}
-                openArticleId = {this.state.openId}
-                openArticle = {this.open}
-            />
+            openArticleId={this.state.openId}
+            openArticle={this.open}
+        />
     }
 }
