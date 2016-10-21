@@ -3,16 +3,14 @@ import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import Select from 'react-select'
 import 'react-select/dist/react-select.css'
+import { connect } from 'react-redux'
+import { changeFilters } from '../AC/filters'
 
 class Filters extends Component {
-    state = {
-        selectedArticles: null,
-        from: null,
-        to: null
-    }
+
     render() {
-        const {articles} = this.props;
-        const {from, to} = this.state;
+        const {articles, filters} = this.props;
+        const {from, to} = filters;
         const options = articles.map((article) => ({
             label: article.title,
             value: article.id
@@ -21,7 +19,7 @@ class Filters extends Component {
             <div>
                 <Select
                     options = {options}
-                    value = {this.state.selectedArticles}
+                    value = {filters.selectedArticles}
                     onChange = {this.handleSelectChange}
                     multi = {true}
                 />
@@ -44,21 +42,27 @@ class Filters extends Component {
     }
 
     handleDayClick = (e, day) => {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
+        const { changeFilters } = this.props
+        const range = DateUtils.addDayToRange(day, this.props.filters);
+        changeFilters(range);
     }
     handleResetClick = (e) => {
         e.preventDefault();
-        this.setState({
+        const { changeFilters } = this.props
+        changeFilters({
             from: null,
             to: null
         })
     }
     handleSelectChange = (selectedArticles) => {
-        this.setState({
-            selectedArticles
+        const { changeFilters } = this.props
+        changeFilters({
+            selectedArticles: selectedArticles.map(o => o.value)
         })
     }
 }
 
-export default Filters
+export default connect(state => {
+    const { articles, filters } = state;
+    return { articles, filters }
+}, { changeFilters })(Filters)
