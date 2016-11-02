@@ -18,7 +18,7 @@ class Filters extends Component {
         return (
             <div>
                 <Select
-                    options = {options}
+                    options = {options.valueSeq().toJS()}
                     value = {filters.selectedArticles}
                     onChange = {this.handleSelectChange}
                     multi = {true}
@@ -64,5 +64,8 @@ class Filters extends Component {
 
 export default connect(state => {
     const { articles, filters } = state;
-    return { articles, filters }
+    return {
+        articles: articles.valueSeq(),
+        filters
+    }
 }, { changeFilters })(Filters)
