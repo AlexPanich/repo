@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react'
-import CommentList from './../CommentList'
+import CommentList from '../../containers/CommentList'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './style.css'
 import { deleteArticle } from '../../AC/articles';
@@ -30,7 +30,7 @@ class Article extends Component {
 
     handleDelete = (ev) => {
       ev.preventDefault()
-      const { article, deleteArticle } = this.props 
+      const { article, deleteArticle } = this.props
       deleteArticle(article.id)
     }
 }
