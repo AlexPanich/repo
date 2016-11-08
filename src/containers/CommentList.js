@@ -19,12 +19,12 @@ class CommentList extends Component {
         console.log('---', this.props.isOpen, nextProps.isOpen)
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-      return nextProps.isOpen != this.props.isOpen;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //   return nextProps.isOpen != this.props.isOpen;
+    // }
 
     getBody() {
-        const { isOpen, article, commentObjects, addComment } = this.this.props;
+        const { isOpen, article, commentObjects, addComment } = this.props;
         if (!isOpen) return null;
         const commentItems = commentObjects.map(comment => <li key={comment.id}><Comment comment={comment}/></li>);
         return (

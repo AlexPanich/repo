@@ -21,7 +21,8 @@ export default (articles = defaultArticles, action) => {
       case DELETE_ARTICLE:
         return articles.delete(payload.id);
       case ADD_COMMENT:
-        return article.updateIn([payload.articleId, 'comments'], comments => comments.concat(randomId))
+          console.log('---Random', randomId)
+        return articles.updateIn([payload.articleId, 'comments'], comments => comments.concat(randomId))
 
   }
   //article.set()

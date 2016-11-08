@@ -5,24 +5,24 @@ class NewCommentForm extends Component {
         user: '',
         text: ''
     }
+    handleChange = element => ev => {
+        this.setState({
+            [element]: ev.target.value
+        })
+    }
+    handleSubmit = ev => {
+        const { addComment, articleId } = this.props;
+        ev.preventDefault();
+        addComment(this.state, articleId);
 
+        this.setState({
+            user: '',
+            text: ''
+        })
+    }
     render() {
         const { text, user } = this.state
-        handleChange = element => ev => {
-            this.setState({
-                [element]: ev.target.value
-            })
-        }
-        handleSubmit = ev => {
-            const { addComment, articleId } = this.props;
-            ev.preventDefault();
-            addComment(this.state, articleId);
 
-            this.setState({
-                user: '',
-                text: ''
-            })
-        }
         return (
             <form onSubmit={this.handleSubmit}>
                 Name:

@@ -12,8 +12,8 @@ class Article extends Component {
     };
 
     render() {
-        const {isOpen, openArticle, article: {title, text, comments}} = this.props;
-        const body = isOpen ? <section>{ text } <CommentList comments={comments}/></section> : null;
+        const {isOpen, openArticle, article: {title, text, comments}, article} = this.props;
+        const body = isOpen ? <section>{ text } <CommentList article={article} comments={comments}/></section> : null;
         return (
             <div className="article">
                 <h1 onClick={openArticle}>{ title }<a href="#" onClick = {this.handleDelete}>delete me</a></h1>
