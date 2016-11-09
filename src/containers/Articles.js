@@ -1,9 +1,14 @@
 import React, {Component, PropTypes} from 'react'
 import ArticleList from '../components/ArticleList'
 import {connect} from 'react-redux'
+import {loadAllArticles} from '../AC/articles'
 
 class Articles extends Component {
     static propTypes = {};
+
+    componentDidMount() {
+        this.props.loadAllArticles();
+    }
 
     render() {
         const {articles} = this.props
@@ -16,7 +21,7 @@ export default connect(
         return {
             articles: filterArticles(articles, filters)
         }
-    }
+    }, {loadAllArticles}
 )(Articles)
 
 function filterArticles(articles, {from, to, selectedArticles}) {

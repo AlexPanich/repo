@@ -1,5 +1,5 @@
 import { normalizedArticles } from '../fixtures'
-import { DELETE_ARTICLE, ADD_COMMENT } from '../constants'
+import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, SUCCESS } from '../constants'
 import { Record } from 'immutable'
 import { recordsFromArray } from './utils'
 
@@ -12,10 +12,10 @@ const Article = Record({
 });
 
 
-const defaultArticles = recordsFromArray(Article, normalizedArticles);
+const defaultArticles = recordsFromArray(Article, []);
 
 export default (articles = defaultArticles, action) => {
-  const {type, payload, randomId} = action;
+  const {type, payload, randomId, response} = action;
 
   switch (type) {
       case DELETE_ARTICLE:
@@ -23,7 +23,8 @@ export default (articles = defaultArticles, action) => {
       case ADD_COMMENT:
           console.log('---Random', randomId)
         return articles.updateIn([payload.articleId, 'comments'], comments => comments.concat(randomId))
-
+      case LOAD_ALL_ARTICLES + SUCCESS:
+        return articles = recordsFromArray(Article, response)
   }
   //article.set()
   //articles.update()
